@@ -9,7 +9,7 @@ module ActionDispatch::Routing
         bucket_collection_items_controller = "mongodb_rest_engine/bucket_collection_items"
       end
 
-      scope "/#{namespace_name}/:bucket/:collection" do
+      scope "/#{namespace_name}/:bucket/:collection", :constraints => {:bucket => /\w+/, :collection => /\w+/} do
         get '/', :controller => bucket_collection_items_controller, :action => "index"
         get ':id', :controller => bucket_collection_items_controller, :action => "show"
         post '/', :controller => bucket_collection_items_controller, :action => "create"
