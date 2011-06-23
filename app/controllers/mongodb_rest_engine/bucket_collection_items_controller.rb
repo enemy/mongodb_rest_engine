@@ -31,17 +31,10 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
   private
   
   def load_collection
-    # WORKSFORME: refactor this
-
-    if ENV['MONGOLAB_URI']
-      connection = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'], {:pool_size => 5, :timeout => 5})
-      db = connection.db(ENV['MONGOLAB_URI'].split("/").last)
-    elsif ENV['MONGOHQ_URL']
-      connection = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'], {:pool_size => 5, :timeout => 5})
-      db = connection.db(ENV['MONGOHQ_URL'].split("/").last)
-    else
-      db = Mongo::Connection.new.db('db') # configure db name?
-    end
+    connection = Mongo::Connection.from_uri(MongodbRestEngine.backend_uri,
+                                            {:pool_size => MongodbRestEngine.pool_size,
+                                             :timeout => MongodbRestEngine.timeout})
+    db = connection.db(MongodbRestEngine.db_name)
 
     @collection = db.collection("#{params[:bucket]}_#{params[:collection]}")
   end
