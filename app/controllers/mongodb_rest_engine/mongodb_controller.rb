@@ -43,7 +43,7 @@ class MongodbRestEngine::MongodbController < ApplicationController
       db = Mongo::Connection.new.db('db') # configure db name?
     end
 
-    @collection = db.collection(params[:collection])
+    @collection = db.collection("#{params[:bucket]}_#{params[:collection]}")
   end
 
 end

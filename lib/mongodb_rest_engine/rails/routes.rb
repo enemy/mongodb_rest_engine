@@ -10,11 +10,11 @@ module ActionDispatch::Routing
       end
 
       scope "/#{namespace_name}" do
-        get ':collection', :controller => mongodb_controller, :action => "index"
-        get ':collection/:id', :controller => mongodb_controller, :action => "show"
-        post ':collection', :controller => mongodb_controller, :action => "create"
-        put ':collection/:id', :controller => mongodb_controller, :action => "update"
-        delete ':collection/:id', :controller => mongodb_controller, :action => "destroy"
+        get ':bucket/:collection', :controller => mongodb_controller, :action => "index"
+        get ':bucket/:collection/:id', :controller => mongodb_controller, :action => "show"
+        post ':bucket/:collection', :controller => mongodb_controller, :action => "create"
+        put ':bucket/:collection/:id', :controller => mongodb_controller, :action => "update"
+        delete ':bucket/:collection/:id', :controller => mongodb_controller, :action => "destroy"
       end
     end
   end
