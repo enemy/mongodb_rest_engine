@@ -1,6 +1,6 @@
-class MongodbRestEngine::MongodbController < ApplicationController
+class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
 
-  before_filter :init_collection
+  before_filter :load_collection
   
   def index
     keyz = []
@@ -30,7 +30,7 @@ class MongodbRestEngine::MongodbController < ApplicationController
   
   private
   
-  def init_collection
+  def load_collection
     # WORKSFORME: refactor this
 
     if ENV['MONGOLAB_URI']
