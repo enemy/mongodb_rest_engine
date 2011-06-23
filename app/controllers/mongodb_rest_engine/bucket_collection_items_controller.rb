@@ -36,7 +36,7 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
                                              :timeout => MongodbRestEngine.timeout})
     db = connection.db(MongodbRestEngine.db_name)
 
-    @collection = db.collection("#{params[:bucket]}_#{params[:collection]}")
+    @collection = db.collection("#{params[:bucket]}##{params[:collection]}")
   end
 
 end
