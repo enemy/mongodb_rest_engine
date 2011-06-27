@@ -48,7 +48,8 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
     parsed_body = JSON.parse(body)
     parsed_body[params[:collection].singularize]
     
-    @document_hash = parsed_body[params[:collection].singularize].except("id", "_id")
+    @document_hash = parsed_body[params[:collection].singularize]
+    @document_hash = @document_hash.except("id", "_id") if @document_hash
   end
 
 end
