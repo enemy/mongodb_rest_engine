@@ -7,7 +7,7 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
   def index
     documents = []
     @collection.all.each do |document|
-      documents << Document.build_from(document)
+      documents << MongodbRestEngine::Document.build_from(document)
     end
     
     render :json => documents
@@ -39,7 +39,7 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
   private
   
   def load_collection
-    @collection = Collection.find("#{params[:bucket]}_#{params[:collection]}")
+    @collection = MongodbRestEngine::Collection.find("#{params[:bucket]}_#{params[:collection]}")
   end
 
   def sanitize_request
