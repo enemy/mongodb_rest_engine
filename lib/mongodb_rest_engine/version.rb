@@ -1,3 +1,3 @@
 module MongodbRestEngine
-  VERSION = "0.0.3.pre2".freeze
+  VERSION = "0.1.pre1".freeze
 end

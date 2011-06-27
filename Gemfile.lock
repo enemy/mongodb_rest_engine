@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongodb_rest_engine (0.0.1)
+    mongodb_rest_engine (0.1.pre1)
       bson_ext
       mongo
 
