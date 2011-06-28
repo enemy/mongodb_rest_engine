@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongodb_rest_engine (0.1.pre1)
+    mongodb_rest_engine (0.2.1)
       bson_ext
       mongo
 
@@ -17,4 +17,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson
+  bson_ext
+  mongo
   mongodb_rest_engine!
