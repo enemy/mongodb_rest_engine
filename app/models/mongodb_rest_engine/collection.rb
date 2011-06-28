@@ -36,7 +36,9 @@ class MongodbRestEngine::Collection
   end
 
   def find_document(id_as_string)
-    MongodbRestEngine::Document.build_from(@collection.find_one({:_id => BSON::ObjectId(id_as_string)}))
+    MongodbRestEngine::Document.build_from(
+              @collection.find_one({:_id => BSON::ObjectId(id_as_string)})
+            ) if BSON::ObjectId.legal? id_as_string
   end
 
 end
