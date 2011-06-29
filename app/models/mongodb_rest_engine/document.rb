@@ -10,6 +10,7 @@ class MongodbRestEngine::Document
 
 
   def self.build_from(mongo_document)
+    nil unless mongo_document
     mongo_document["id"] = mongo_document["_id"].to_s
     sanitized_document = mongo_document.except("_id")
 

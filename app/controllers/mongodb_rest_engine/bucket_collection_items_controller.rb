@@ -45,11 +45,14 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
   def sanitize_request
     body = request.body.read
     
-    parsed_body = JSON.parse(body)
-    parsed_body[params[:collection].singularize]
-    
-    @document_hash = parsed_body[params[:collection].singularize]
-    @document_hash = @document_hash.except("id", "_id") if @document_hash
+    begin
+      parsed_body = JSON.parse(body)
+    rescue
+      render :text => "Malformed JSON", :status => 400
+      return
+    end
+
+    @document_hash = parsed_body.except("id", "_id")
   end
 
 end
