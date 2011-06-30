@@ -7,13 +7,13 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
   def index
     documents = []
     begin
-      filter_param = JSON(params[:filter]) if params[:filter]
+      query_param = JSON(params[:query]) if params[:query]
     rescue JSON::ParserError
-      render :text => 'Malformed parameter "filter"', :status => 400
+      render :text => 'Malformed parameter "query"', :status => 400
       return
     end
 
-    @collection.all(filter_param).each do |document|
+    @collection.all(query_param).each do |document|
       documents << MongodbRestEngine::Document.build_from(document)
     end
 
