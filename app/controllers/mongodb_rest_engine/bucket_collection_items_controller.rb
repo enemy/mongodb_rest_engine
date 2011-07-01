@@ -8,12 +8,18 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
     documents = []
     begin
       query_param = JSON(params[:query]) if params[:query]
+      sort_param = JSON(params[:sort]) if params[:sort]
+      fields_param = JSON(params[:fields]) if params[:fields]
+      fields_param.delete("_id") # ^__^
+      fields_param["_id"] = field_param.delete("id") if field_param["id"] # ^__^;
     rescue JSON::ParserError
-      render :text => 'Malformed parameter "query"', :status => 400
+      render :text => 'Malformed parameter(s)', :status => 400
       return
     end
+  
+    opts = {:limit => params[:limit].to_i, :sort => sort_param, :fields => fields_param, :skip => params[:skip].to_i}
 
-    @collection.all(query_param).each do |document|
+    @collection.all(query_param, opts).each do |document|
       documents << MongodbRestEngine::Document.build_from(document)
     end
 

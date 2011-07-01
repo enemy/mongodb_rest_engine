@@ -19,8 +19,8 @@ class MongodbRestEngine::Collection
     find_document(object_id.to_s)
   end
 
-  def all(selector = {})
-    @collection.find(selector)
+  def all(selector = {}, opts = {})
+    @collection.find(selector, opts)
   end
 
   def update(id, document_hash)
