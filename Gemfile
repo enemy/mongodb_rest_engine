@@ -6,3 +6,7 @@ gemspec
 gem 'bson'
 gem 'bson_ext'
 gem 'mongo'
+
+group :development, :test do
+  gem 'rspec'
+end
