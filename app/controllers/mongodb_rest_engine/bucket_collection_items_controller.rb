@@ -16,49 +16,49 @@ class MongodbRestEngine::BucketCollectionItemsController < ApplicationController
       render :text => 'Malformed parameter(s)', :status => 400
       return
     end
-  
+
     opts = {:limit => params[:limit].to_i, :sort => sort_param, :fields => fields_param, :skip => params[:skip].to_i}
 
     @collection.all(query_param, opts).each do |document|
       documents << MongodbRestEngine::Document.build_from(document)
     end
 
-    render :json => documents
+    render :json => documents, :callback => params[:callback]
   end
 
   def show
     document = @collection.find_document(params[:id])
 
-    render :json => document
+    render :json => document, :callback => params[:callback]
   end
 
   def create
     document = @collection.save(@document_hash)
-    
-    render :json => document
+
+    render :json => document, :callback => params[:callback]
   end
 
   def update
     document = @collection.update(params[:id], @document_hash)
 
-    render :json => document
+    render :json => document, :callback => params[:callback]
   end
 
   def destroy
     document = @collection.destroy(params[:id])
 
-    render :json => document
+    render :json => document, :callback => params[:callback]
   end
-  
+
   private
-  
+
   def load_collection
     @collection = MongodbRestEngine::Collection.find("#{params[:bucket]}.#{params[:collection]}")
   end
 
   def sanitize_request
     body = request.body.read
-    
+
     begin
       parsed_body = JSON(body)
     rescue JSON::ParserError
